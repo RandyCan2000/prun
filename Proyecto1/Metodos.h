@@ -52,5 +52,27 @@
     void LeerArchivo(string RutaArchivo);
 
 
+	struct Diccionario
+	{
+		string Palabra;
+		struct Diccionario* sgte;
+		struct Diccionario* ante;
+	};
 
+	typedef struct Diccionario* ListaDLDC;
+
+
+	//-----------------------------Métodos------------------------------------------
+
+	void InsertarPrimeroPalabraDLDC(ListaDLDC& Lista, string Palabra);
+
+	void InsertarUltimoPalabraDLDC(ListaDLDC& Lista, string Palabra);
+
+	bool EstaVaciaDLDC(ListaDLDC& Lista);
+
+	void ImprimirDLDC(ListaDLDC& Lista);
+
+	int CantidadDLDC(ListaDLDC& Lista);
+
+	void EliminarPalabraDLDC(ListaDLDC& Lista, int Posicion);
 

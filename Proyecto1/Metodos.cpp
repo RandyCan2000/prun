@@ -96,9 +96,9 @@
 			cout<< "Proyecto 1" <<endl;
 			gotoxy ((Variables::AnchoPantalla - 2)/2 - 17, 10);
 			Color(0,1);
-			cout<< "Sergio Alexander Echigoyen Gomez" <<endl;
+			cout<< "RANDY ALEXANDER CAN AJUCHAN" <<endl;
 			gotoxy ((Variables::AnchoPantalla - 2)/2 - 6, 12);
-			cout<< "201801628" <<endl;
+			cout<< "201801527" <<endl;
 
 			//Menú
 			Color(0,6);
@@ -214,7 +214,7 @@
 			//Textos
 			Color(0,4);
 			gotoxy(Col1 + 75,Fil1 + 1);
-			cout << "Scrabble++ SEG";
+			cout << "Scrabble++";
 			Color(0,9);
 			gotoxy(Col1 + 50,Fil1 + 5);
 			cout << "Ingrese La Ruta Del Archivo: ";
@@ -271,7 +271,7 @@
 			//Textos
 			Color(0,4);
 			gotoxy(Col1 + 75,Fil1 + 1);
-			cout << "Scrabble++ SEG";
+			cout << "Scrabble++";
 			Color(0,13);
 			gotoxy(Col1 + 66,Fil1 + 5);
 			cout << "Gracias Por Jugar Vuelva Pronto..!";
@@ -303,4 +303,141 @@
 
           cout<< Dimension <<endl;
 		  getch();
+	   }
+
+	   void InsertarPrimeroPalabraDLDC(ListaDLDC& Lista, string Palabra)
+	   {
+		   ListaDLDC aux = new(struct Diccionario);
+		   aux->Palabra = Palabra;
+
+		   if (Lista == NULL)
+		   {
+			   aux->sgte = aux;
+			   aux->ante = aux;
+			   Lista = aux;
+		   }
+		   else
+		   {
+			   ListaDLDC Ultimo = Lista->ante;
+			   aux->sgte = Lista;
+			   aux->ante = Ultimo;
+			   Lista->ante = aux;
+			   Ultimo->sgte = aux;
+			   Lista = aux;
+		   }
+	   }
+
+	   void InsertarUltimoPalabraDLDC(ListaDLDC& Lista, string Palabra)
+	   {
+		   ListaDLDC aux = new(struct Diccionario);
+		   aux->Palabra = Palabra;
+
+		   if (Lista == NULL)
+		   {
+			   aux->sgte = aux;
+			   aux->ante = aux;
+			   Lista = aux;
+		   }
+		   else
+		   {
+			   ListaDLDC Ultimo = Lista->ante;
+			   aux->sgte = Lista;
+			   aux->ante = Ultimo;
+			   Lista->ante = aux;
+			   Ultimo->sgte = aux;
+		   }
+	   }
+
+	   bool EstaVaciaDLDC(ListaDLDC& Lista)
+	   {
+		   if (Lista == NULL)
+		   {
+			   return true;
+		   }
+		   else
+		   {
+			   return false;
+		   }
+	   }
+
+	   void ImprimirDLDC(ListaDLDC& Lista)
+	   {
+		   if (!EstaVaciaDLDC(Lista))
+		   {
+			   int Contador = 1;
+			   ListaDLDC aux = Lista;
+			   do
+			   {
+				   cout << Contador << ". " << aux->Palabra << endl;
+				   aux = aux->sgte;
+				   Contador++;
+			   } while (aux != Lista);
+		   }
+	   }
+
+	   int CantidadDLDC(ListaDLDC& Lista)
+	   {
+		   int Cant = 0;
+
+		   if (!EstaVaciaDLDC(Lista))
+		   {
+			   ListaDLDC aux = Lista;
+			   do
+			   {
+				   Cant++;
+				   aux = aux->sgte;
+			   } while (aux != Lista);
+		   }
+		   return Cant;
+	   }
+
+	   void EliminarPalabraDLDC(ListaDLDC& Lista, int Posicion)
+	   {
+		   if (CantidadDLDC(Lista) != 0)
+		   {
+			   if (Posicion <= CantidadDLDC(Lista))
+			   {
+				   if (Posicion == 1)
+				   {
+					   if (CantidadDLDC(Lista) == 1)
+					   {
+						   delete Lista;
+						   Lista = NULL;
+					   }
+					   else
+					   {
+						   ListaDLDC Borrar = Lista;
+						   ListaDLDC Ultimo = Lista->ante;
+						   Lista = Lista->sgte;
+						   Ultimo->sgte = Lista;
+						   Lista->ante = Ultimo;
+						   delete Borrar;
+					   }
+				   }
+				   else
+				   {
+					   ListaDLDC aux = Lista;
+					   for (int i = 1; i <= Posicion - 1; i++)
+					   {
+						   aux = aux->sgte;
+					   }
+					   ListaDLDC Borrar = aux;
+					   ListaDLDC Anterior = aux->ante;
+					   aux = aux->sgte;
+					   Anterior->sgte = aux;
+					   aux->ante = Anterior;
+					   delete Borrar;
+				   }
+			   }
+			   else
+			   {
+				   cout << "La Valor Indicado No Existe En La Lista" << endl;
+				   system("pause > 0");
+			   }
+		   }
+		   else
+		   {
+			   cout << "Lista Vacia" << endl;
+			   system("pause > 0");
+		   }
 	   }
